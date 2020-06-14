@@ -1,0 +1,35 @@
+tree("Root")
+	parallel
+		repeat mute tree("Patrol")
+		repeat mute tree("Dead")
+
+tree("Patrol")
+	fallback
+		tree("Attack")
+		tree("Guard")
+tree("Attack")
+	while Triggered
+		sequence
+			LookAtTarget
+			fallback
+				while CanShoot
+					sequence
+						Attack
+				while not CanShoot
+					sequence
+						TargetDestination
+						MoveToDestination
+			
+tree("Guard")
+	while not Triggered
+		sequence 
+			PickDestination
+			ChangeDestination
+			MoveToDestination
+tree("Dead")
+	sequence
+		IsHealthLessThan(0.1)
+		Die
+		
+
+			
